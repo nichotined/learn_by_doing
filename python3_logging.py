@@ -18,6 +18,11 @@ class LoggerHelper():
             print(e)
 
     @staticmethod
+    def simple_logger():
+        logger1 = logzero.setup_logger(name="simple", logfile="/tmp/simple_logger.log")
+        return logger1
+
+    @staticmethod
     def json_logger():
         json_format = LoggerHelper.json_formatter()
         logger1 = logzero.setup_logger(name="json_log", logfile="/tmp/json_log.log", formatter=json_format)
@@ -39,3 +44,22 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
             log_record['level'] = log_record['level'].upper()
         else:
             log_record['level'] = record.levelname
+
+
+logger_helper = LoggerHelper()
+json_logger = logger_helper.json_logger()
+simple_logger = logger_helper.simple_logger()
+
+json_logger.debug('DEBUG')
+json_logger.info('INFO')
+json_logger.warning('WARNING')
+json_logger.error('ERROR')
+json_logger.exception('EXCEPTION')
+json_logger.critical('CRITICAL')
+
+simple_logger.debug('DEBUG')
+simple_logger.info('INFO')
+simple_logger.warning('WARNING')
+simple_logger.error('ERROR')
+simple_logger.exception('EXCEPTION')
+simple_logger.critical('CRITICAL')
